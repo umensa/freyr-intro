@@ -162,6 +162,34 @@ p a:hover, a:focus, a:active {
 
 }
 
+#projects ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+#project-link {
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  border-radius: 0.5em;
+  padding: 0.5em;
+
+  color: goldenrod;
+  font-family: "typewriter", monospace;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+#project-link p {
+  font-family: Verdana, Helvetica, "DejaVu Sans", sans-serif;
+  font-size: 0.8em;
+  color: darkred;
+}
+
 #postcard {
   display: flex;
   justify-content: center;
@@ -297,6 +325,10 @@ footer p {
 
   main {
     width: 740px;
+  }
+
+  .nav-list ul {
+    justify-content: center;
   }
 
   .skill-list li {
