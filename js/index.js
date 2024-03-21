@@ -128,3 +128,67 @@ messageForm.addEventListener("submit", (event) => {
     messageSection.toggleAttribute("hidden");
   }
 });
+
+// Fetch GitHub Repositories
+const githubRequest = new XMLHttpRequest();
+githubRequest.open("GET", "https://api.github.com/users/xasterisc/repos", true);
+githubRequest.send();
+
+// Handle Response from Server
+githubRequest.onload = function () {
+  const repositories = JSON.parse(this.response);
+  console.log(repositories);
+
+  // Display Repositories in List
+  const projectSection = document.getElementById("projects");
+  const projectList = projectSection.querySelector("ul");
+
+  for (let i = 0; i < repositories.length; i++) {
+    const project = document.createElement("li");
+    const projectLink = document.createElement("a");
+    const descriptionParagraph = document.createElement("p");
+    const creationDate = document.createElement("p");
+    const createdAt = new Date(repositories[i].created_at);
+    const monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
+    projectLink.textContent = repositories[i].name;
+    projectLink.setAttribute("id", "project-link");
+    projectLink.setAttribute("href", repositories[i].html_url);
+    projectLink.setAttribute("title", repositories[i].name);
+    projectLink.setAttribute("target", "_blank");
+    projectLink.setAttribute("rel", "noopener noreferrer");
+
+    creationDate.textContent =
+      "Created at: " +
+      monthNames[createdAt.getMonth()] +
+      " " +
+      createdAt.getDate() +
+      ", " +
+      createdAt.getFullYear();
+
+    projectList
+      .appendChild(project)
+      .appendChild(projectLink)
+      .appendChild(creationDate);
+
+    if (repositories[i].description) {
+      descriptionParagraph.textContent = repositories[i].description;
+      descriptionParagraph.style.fontStyle = "italic";
+      descriptionParagraph.style.fontWeight = "lighter"
+      projectLink.appendChild(descriptionParagraph);
+    }
+  }
+};
